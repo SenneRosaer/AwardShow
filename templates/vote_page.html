@@ -40,6 +40,12 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+        .modal-image {
+        max-width: 100%;
+        max-height: 300px;  /* Adjust the max height as needed */
+        margin-bottom: 10px;
+    }
     </style>
 </head>
 <body>
@@ -61,6 +67,7 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2>Confirm Vote</h2>
+                <img id="modalImage" class="modal-image" alt="Selected Person's Image">
                 <p id="voteConfirmationText"></p>
                 <button onclick="confirmVote()">Confirm</button>
             </div>
@@ -71,6 +78,8 @@
         function openModal(personName) {
             document.getElementById('voteConfirmationText').innerHTML = 'Are you sure you want to vote for ' + personName + '?';
             document.getElementById('myModal').style.display = 'block';
+            var imageUrl = "{{ url_for('static', filename='images/') }}" + personName;
+            document.getElementById('modalImage').src = imageUrl;
             document.getElementById('hiddenVoteInput').value = personName;
         }
 
