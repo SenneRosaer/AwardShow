@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .thumbnail-container {
+            margin: 20px;
+        }
+
+        .thumbnail {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" id="hiddenVoteInput">
+    <div class="container">
+        <h1 class="mt-4 mb-4">Vote for Your Favorite Person</h1>
+        
+        <div class="row">
+            {% for image_file in image_files %}
+                <div class="col-md-3 thumbnail-container">
+                    <p class="text-center">{{ image_file.split('.')[0] }}</p>
+                    <img class="thumbnail" src="{{ url_for('static', filename='images/' + image_file) }}" alt="{{ image_file }}" onclick="openModal('{{ image_file }}')">
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Modal for confirmation -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Confirm Vote</h2>
+                <p id="voteConfirmationText"></p>
+                <button onclick="confirmVote()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(personName) {
+            document.getElementById('voteConfirmationText').innerHTML = 'Are you sure you want to vote for ' + personName + '?';
+            document.getElementById('myModal').style.display = 'block';
+            document.getElementById('hiddenVoteInput').value = personName;
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        function confirmVote() {
+        // Retrieve the personName from the hidden input field
+        var personName = document.getElementById('hiddenVoteInput').value;
+
+        // Make an AJAX request to send the vote to the Flask app
+        $.ajax({
+            type: 'POST',
+            url: '/submit_vote',
+            data: JSON.stringify({ 'personName': personName }),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(response) {
+                alert('Vote confirmed!');  // Placeholder, replace with actual logic
+                closeModal();
+            },
+            error: function(error) {
+                alert('Error confirming vote.');
+                console.error(error);
+            }
+        });
+    }
+    </script>
+
+    <!-- Bootstrap JS and Popper.js for Bootstrap functionality -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</body>
+</html>
