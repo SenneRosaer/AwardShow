@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'StoryStone';
+    src: url('../fonts/StoryStone.ttf') format('ttf'); /* Update the path and format as needed */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-image: url('../images/background.PNG'); /* Replace with the path to your background image */
+    background-size: cover;
+    font-family: 'StoryStone'
+}
+
+a {
+    color: white;
+}
+
+p {
+    color: white
+}
+
+h1, h2, h3, h4, h5 {
+    color: white;
+}
+
+.btn-primary {
+    background-color: rgb(212, 182, 11);
+    border-color: rgb(212, 182, 11);
+}
+
+.card-body {
+    background-color: grey;
+}

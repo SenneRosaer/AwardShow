@@ -51,7 +51,7 @@
 <body>
     <input type="hidden" id="hiddenVoteInput">
     <div class="container">
-        <h1 class="mt-4 mb-4">Vote for Your Favorite Person</h1>
+        <h1 class="mt-4 mb-4">{{ award_sentence }}</h1>
         
         <div class="row">
             {% for image_file in image_files %}
@@ -95,11 +95,11 @@
         $.ajax({
             type: 'POST',
             url: '/submit_vote',
-            data: JSON.stringify({ 'personName': personName }),
+            data: JSON.stringify({ 'personName': personName , 'award_name': '{{award_name}}'}),
             contentType: 'application/json;charset=UTF-8',
             success: function(response) {
-                alert('Vote confirmed!');  // Placeholder, replace with actual logic
                 closeModal();
+                window.location.href = "{{ url_for('dashboard') }}";
             },
             error: function(error) {
                 alert('Error confirming vote.');

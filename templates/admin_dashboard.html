@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+
+    <h3>Prizes</h3>
+    <ul>
+        {% for prize_name, prize_sentence in awards.items() %}
+            <li>
+                <a href="{{ url_for('admin_show_votes', prize=prize_name) }}">
+                    {{ prize_sentence }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

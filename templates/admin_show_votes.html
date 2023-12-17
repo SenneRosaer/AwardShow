@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        .thumbnail-container {
+            margin: 20px;
+        }
+    
+        .thumbnail {
+            max-width: 20%;
+            height: auto;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Votes for {{ prize_name }}</h2>
+    <div class="row">
+
+            {% for person_name, votes in top_votes %}
+            <div class="col-md-3 thumbnail-container">
+                        <p class="text-center">{{ person_name.split('.')[0] }}</p>
+                        <img class="thumbnail" src="{{ url_for('static', filename='images/' + person_name) }}" alt="{{ person_name }}"">
+                    </div>
+                
+            {% endfor %}
+        </div>
+</body>
+</html>
