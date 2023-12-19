@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<body class="d-flex align-items-center justify-content-center vh-100" style="margin-top: 20%;">
-    <div class="container text-center">
     <h1>Welcome, {{ current_user.username }}!</h1>
     <p>Cast your votes for the award show:</p>
     {% with messages = get_flashed_messages() %}
@@ -26,13 +24,11 @@
             </div>
         {% endfor %}
     </div>
-    {% if current_user %}
+    {% if current_user.username == 'admin' %}
     <h2> Admin overview </h2>
     <a href="{{ url_for('admin_dashboard') }}">
         Admin Dashboard
     </a>
     {% endif %}
-    <a href="{{ url_for('logout') }}">Logout</a>
-</div>
-</body>
+    <a href="{{ url_for('logout') }}" class="btn btn-logout">Logout</a>
 {% endblock %}

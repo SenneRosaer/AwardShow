@@ -74,6 +74,7 @@ def login():
 import copy
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     name = current_user.username
     removal = []
@@ -94,7 +95,7 @@ def dashboard():
 @login_required
 def vote(award_name, award_sentence):
     # Get a list of images from the folder
-    image_folder = 'C:\\Users\\senne\\OneDrive\\Bureaublad\\AwardShow\\static\\images'
+    image_folder = 'C:\\Users\\senne\\OneDrive\\Bureaublad\\AwardShow\\static\\images\\people'
     print(os.listdir(image_folder))
     print(os.getcwd())
     image_files = [f for f in os.listdir(image_folder) if f.endswith(('png', 'jpg', 'jpeg', 'JPG'))]
@@ -109,9 +110,8 @@ def submit_vote():
         person_name = data.get('personName')
         award = data.get('award_name')
 
-        print(f"Voted {person_name}")
-        # Implement your logic to handle the vote submission here
-        # For example, you can store the votes in the database
+        print(f"Voted {person_name} for {award} by {current_user.username}")
+
         username = current_user.username
 
         

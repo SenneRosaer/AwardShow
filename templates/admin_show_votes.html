@@ -1,34 +1,44 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <style>
-        .thumbnail-container {
-            margin: 20px;
-        }
-    
-        .thumbnail {
-            max-width: 20%;
-            height: auto;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <h2>Votes for {{ prize_name }}</h2>
     <div class="row">
 
             {% for person_name, votes in top_votes %}
             <div class="col-md-3 thumbnail-container">
                         <p class="text-center">{{ person_name.split('.')[0] }}</p>
-                        <img class="thumbnail" src="{{ url_for('static', filename='images/' + person_name) }}" alt="{{ person_name }}"">
+                        <img class="thumbnail" src="{{ url_for('static', filename='images/people/' + person_name +'.JPG') }}" alt="{{ person_name }}"">
                     </div>
                 
             {% endfor %}
         </div>
-</body>
-</html>
+        <button type="button" class="btn btn-primary" onclick="openModal()">
+            Show Winner
+        </button>
+        <div class="modal" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="winnerModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="winnerModalLabel">Winner of {{prize_name}}</h5>
+                        <button type="button" class="close" onclick="closeModal()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>The winner  is: <h3>{{ top_votes[0][0].split('.')[0] }}</h3></p>
+                        <img id="modalImage" class="modal-image" src="{{ url_for('static', filename='images/people/' + top_votes[0][0] +'.JPG') }}" alt="{{ top_votes[0][0] }}"">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                    </div>
+        </div>
+
+
+        <script>
+             function openModal() {
+
+            document.getElementById('winnerModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('winnerModal').style.display = 'none';
+        }
+        </script>
+{% endblock %}

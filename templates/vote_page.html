@@ -1,86 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vote Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <style>
-        .thumbnail-container {
-            margin: 20px;
-        }
-
-        .thumbnail {
-            max-width: 100%;
-            height: auto;
-            cursor: pointer;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f1f1f1;
-            padding: 20px;
-            z-index: 1;
-        }
-
-        .modal-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .modal-image {
-        max-width: 100%;
-        max-height: 300px;  /* Adjust the max height as needed */
-        margin-bottom: 10px;
-    }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <input type="hidden" id="hiddenVoteInput">
-    <div class="container">
         <h1 class="mt-4 mb-4">{{ award_sentence }}</h1>
         
         <div class="row">
             {% for image_file in image_files %}
                 <div class="col-md-3 thumbnail-container">
                     <p class="text-center">{{ image_file.split('.')[0] }}</p>
-                    <img class="thumbnail" src="{{ url_for('static', filename='images/' + image_file) }}" alt="{{ image_file }}" onclick="openModal('{{ image_file }}')">
+                    <img class="thumbnail" src="{{ url_for('static', filename='images/people/' + image_file) }}" alt="{{ image_file }}" onclick="openModal('{{ image_file }}')">
                 </div>
             {% endfor %}
         </div>
 
         <!-- Modal for confirmation -->
         <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
+                <button type="button" class="close" aria-label="Close" onclick="closeModal()">
+                    <span aria-hidden="true" class="closebtn">&times;</span>
+                </button>
+                
                 <h2>Confirm Vote</h2>
                 <img id="modalImage" class="modal-image" alt="Selected Person's Image">
                 <p id="voteConfirmationText"></p>
-                <button onclick="confirmVote()">Confirm</button>
-            </div>
+                <button onclick="confirmVote()" class="btn btn-primary">Confirm</button>
         </div>
-    </div>
 
     <script>
         function openModal(personName) {
-            document.getElementById('voteConfirmationText').innerHTML = 'Are you sure you want to vote for ' + personName + '?';
+            const name = personName.split('.')[0]
+            document.getElementById('voteConfirmationText').innerHTML = 'Are you sure you want to vote for ' + name + '?';
             document.getElementById('myModal').style.display = 'block';
-            var imageUrl = "{{ url_for('static', filename='images/') }}" + personName;
+            var imageUrl = "{{ url_for('static', filename='images/people/') }}" + personName;
             document.getElementById('modalImage').src = imageUrl;
-            document.getElementById('hiddenVoteInput').value = personName;
+            document.getElementById('hiddenVoteInput').value = name;
         }
 
         function closeModal() {
@@ -110,9 +61,8 @@
     </script>
 
     <!-- Bootstrap JS and Popper.js for Bootstrap functionality -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-</body>
-</html>
+
+{% endblock %}

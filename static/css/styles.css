@@ -6,9 +6,9 @@
 }
 
 body {
-    background-image: url('../images/background.PNG'); /* Replace with the path to your background image */
+    background-color: black; /* Replace with the path to your background image */
     background-size: cover;
-    font-family: 'StoryStone'
+    font-family: 'Pacifico', sans-serif
 }
 
 a {
@@ -16,6 +16,10 @@ a {
 }
 
 p {
+    color: white
+}
+
+label {
     color: white
 }
 
@@ -27,7 +31,128 @@ h1, h2, h3, h4, h5 {
     background-color: rgb(212, 182, 11);
     border-color: rgb(212, 182, 11);
 }
+.closebtn{
+    color:  rgb(212, 182, 11)
+}
 
 .card-body {
     background-color: grey;
 }
+
+#myModal {
+    background-color: grey;
+}
+
+#winnerModal {
+    background-color: grey;
+    display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: grey;
+}
+.fireworks-left,
+        .fireworks-right {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px; /* Adjust the width of fireworks as needed */
+            background-image: url('../images/fw.png'); /* Replace with the path to your firework image */
+            background-size: cover;
+            background-repeat: repeat-y;
+        }
+
+        .fireworks-left {
+            left: 10;
+            clip-path: polygon(100% 0, 0 50%, 100% 100%);
+            transform: scaleX(-1); /* Flip the image horizontally for the left side */
+        }
+
+        .fireworks-right {
+            right: 0;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        .btn-logout {
+            color: white;
+            background-color:  rgb(212, 182, 11); /* Bootstrap's danger color for a red button */
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-login {
+            color: white;
+            background-color:  rgb(212, 182, 11); /* Bootstrap's danger color for a red button */
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .left-image,
+        .right-image {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            height: 100%; /* Adjust the height of images as needed */
+            z-index: 1; /* Place images behind the main content */
+        }
+
+        .left-image {
+            left: 0;
+        }
+
+        .right-image {
+            right: 0;
+        }
+
+        .thumbnail-container {
+            margin: 20px;
+        }
+
+        .thumbnail {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1f1f1;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: grey;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-image {
+        max-width: 100%;
+        max-height: 300px;  /* Adjust the max height as needed */
+        margin-bottom: 10px;
+    }
