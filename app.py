@@ -169,13 +169,13 @@ def admin_show_votes(prize):
             else:
                 winner = top_votes[1]
 
+    random.shuffle(top_votes)
     print(top_votes)
     return render_template('admin_show_votes.html', prize_name=prize, top_votes=top_votes, winner=winner)
 
 
 if __name__ == '__main__':
     with app.app_context():
-        db.drop_all()
         db.create_all()
         existing_user = User.query.filter_by(username='admin').first()
         if not existing_user:
@@ -184,10 +184,20 @@ if __name__ == '__main__':
 
             # Add the user to the database session
             db.session.add(new_user)
-            db.session.add(User(username='user1', password='user1'))
-            db.session.add(User(username='user2', password='user2'))
-            db.session.add(User(username='user3', password='user3'))
             db.session.add(User(username='thibaut', password='toeber'))
+            db.session.add(User(username='arne', password='verdwaaldeaap'))
+            db.session.add(User(username='branko', password='krab'))
+            db.session.add(User(username='freek', password='zeivereir'))
+            db.session.add(User(username='joren', password='scheeru'))
+            db.session.add(User(username='michael', password='ultragay'))
+            db.session.add(User(username='miguel', password='dankuvoorhuis'))
+            db.session.add(User(username='nick', password='letsgochamp'))
+            db.session.add(User(username='owen', password='tweedeknapste'))
+            db.session.add(User(username='plenni', password='plaxel'))
+            db.session.add(User(username='rowan', password='buitenlander'))
+            db.session.add(User(username='ruben', password='benchmeer'))
+            db.session.add(User(username='senne', password='informatica'))
+            db.session.add(User(username='stein', password='clown'))
 
             # Commit the session to persist changes
             db.session.commit()
