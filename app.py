@@ -8,6 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 import os
 from flask import jsonify, request
 from collections import Counter
+import random
 # Configure Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'  # Change this to a secure secret key
@@ -17,9 +18,22 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 awards = {
-    "basic_bitch" : "Most basic bitch?",
-    "restarted" : "Most restarted?",
-    "accoustic" : "Most accoustic?"
+    "brandkast" : "Rapste op de brandkast (snelst dood)",
+    "gesprekken_stelen" : "Beste in overnemen van gesprekken en onmiddelijk naar zichzelf te draaien",
+    "keuzes" : "Meest teleurstellende levenskeuzes",
+    "flame" : "Up and coming flame taker",
+    "glow-down": "Glow-down van het jaar",
+    "gay": "Gay van het jaar",
+    "janker": "Janker van het jaar",
+    "luie": "Meest gebeten door de luie hond",
+    "zaag": "Grootste zaag van het jaar",
+    "globaal": "Globaal minste welkom",
+    "nek": "Dikste nek van het jaar",
+    "eenzaam": "Meest eenzaam van het jaar",
+    "restarted": "Restarted van het jaar",
+    "accoustic": "Acoustic van het jaar",
+    "slimste": "Self proclaimed slimste van de groep",
+    "imuun": "Grootste gebrek aan functioneel imuunsysteem"
 }
 
 # User model
@@ -62,7 +76,6 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        print(user.password)
         if user and user.password == form.password.data:
             login_user(user)
             flash('Login successful!', 'success')
@@ -143,11 +156,21 @@ def admin_show_votes(prize):
 
     # Count the votes for each person
     vote_counts = Counter(vote.voted_for for vote in votes)
-
+    print(votes)
     # Get the top three votes
     top_votes = vote_counts.most_common(3)
+    winner = top_votes[0]
+    if len(top_votes) > 1:
+        if top_votes[0][1] == top_votes[1][1]:
+            choice = random.randint(0,100)
+            print(choice)
+            if choice < 50:
+                winner = top_votes[0]
+            else:
+                winner = top_votes[1]
+
     print(top_votes)
-    return render_template('admin_show_votes.html', prize_name=prize, top_votes=top_votes)
+    return render_template('admin_show_votes.html', prize_name=prize, top_votes=top_votes, winner=winner)
 
 
 if __name__ == '__main__':
@@ -164,6 +187,7 @@ if __name__ == '__main__':
             db.session.add(User(username='user1', password='user1'))
             db.session.add(User(username='user2', password='user2'))
             db.session.add(User(username='user3', password='user3'))
+            db.session.add(User(username='thibaut', password='toeber'))
 
             # Commit the session to persist changes
             db.session.commit()

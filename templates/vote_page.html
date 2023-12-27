@@ -2,13 +2,15 @@
 {% block content %}
     <input type="hidden" id="hiddenVoteInput">
         <h1 class="mt-4 mb-4">{{ award_sentence }}</h1>
-        
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Return</a>
         <div class="row">
             {% for image_file in image_files %}
+                {% if image_file.split('.')[0] != current_user.username %}
                 <div class="col-md-3 thumbnail-container">
                     <p class="text-center">{{ image_file.split('.')[0] }}</p>
                     <img class="thumbnail" src="{{ url_for('static', filename='images/people/' + image_file) }}" alt="{{ image_file }}" onclick="openModal('{{ image_file }}')">
                 </div>
+                {% endif %}
             {% endfor %}
         </div>
 

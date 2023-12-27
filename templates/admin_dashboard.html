@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Admin Dashboard</h2>
-
-    <h3>Prizes</h3>
-    <ul>
+    <h1>Prizes</h1>
+    <ul style="margin-left: auto; margin-right: auto; margin-top: 40px;">
         {% for prize_name, prize_sentence in awards.items() %}
-            <li>
+            <li style="margin-top: 15px">
                 <a href="{{ url_for('admin_show_votes', prize=prize_name) }}">
                     {{ prize_sentence }}
                 </a>

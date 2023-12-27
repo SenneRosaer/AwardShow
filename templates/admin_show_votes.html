@@ -11,33 +11,33 @@
                 
             {% endfor %}
         </div>
-        <button type="button" class="btn btn-primary" onclick="openModal()">
+        <button type="button" class="btn btn-primary" onclick="openAdminModal()">
             Show Winner
         </button>
-        <div class="modal" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="winnerModalLabel" aria-hidden="true">
+        <div class="modal" id="winnerModal">
                     <div class="modal-header">
                         <h5 class="modal-title" id="winnerModalLabel">Winner of {{prize_name}}</h5>
-                        <button type="button" class="close" onclick="closeModal()">
+                        <button type="button" class="close" onclick="closeAdminModal()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>The winner  is: <h3>{{ top_votes[0][0].split('.')[0] }}</h3></p>
-                        <img id="modalImage" class="modal-image" src="{{ url_for('static', filename='images/people/' + top_votes[0][0] +'.JPG') }}" alt="{{ top_votes[0][0] }}"">
+                        <p>The winner  is: <h3>{{ winner[0].split('.')[0] }}</h3></p>
+                        <img id="modalImage" class="modal-image" src="{{ url_for('static', filename='images/people/' + winner[0] +'.JPG') }}" alt="{{ winner[0] }}"">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeAdminModal()">Close</button>
                     </div>
         </div>
 
 
         <script>
-             function openModal() {
+             function openAdminModal() {
 
-            document.getElementById('winnerModal').style.display = 'block';
+            document.getElementById('winnerModal').style.display = 'flex';
         }
 
-        function closeModal() {
+        function closeAdminModal() {
             document.getElementById('winnerModal').style.display = 'none';
         }
         </script>
